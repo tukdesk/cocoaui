@@ -400,7 +400,7 @@
 			_floatType = IStyleFloatCenter;
 		}
 		//log_trace(@"floatType = %d", self.floatType);
-	}else if([k isEqualToString:@"valign"]){
+	}else if([k isEqualToString:@"valign"] || [k isEqualToString:@"vertical-align"]){
 		needsLayout = YES;
 		if([v isEqualToString:@"top"]){
 			_valignType = IStyleValignTop;
