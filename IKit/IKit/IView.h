@@ -20,6 +20,10 @@ typedef enum{
 	IEventTap          = IEventClick,
 	IEventChange       = 1<<3,
 	IEventReturn       = 1<<4,
+    // for UITextField
+    IEventBeginingEditing   = 1<<5,
+    IEventEndEditing        = 1<<6,
+    IEventClear             = 1<<7,
 }IEventType;
 
 typedef enum{

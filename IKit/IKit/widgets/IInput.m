@@ -20,6 +20,9 @@ typedef enum{
 	IInputType _type;
 	void (^_changeHandler)(IEventType, IView *);
 	void (^_returnHandler)(IEventType, IView *);
+    void (^_clearHandler)(IEventType, IView *);
+    void (^_beginEditingHandler)(IEventType, IView *);
+    void (^_endEditingHandler)(IEventType, IView *);
 }
 @property (nonatomic) IInputType type;
 @end
@@ -133,6 +136,15 @@ typedef enum{
 	if(event & IEventReturn){
 		_returnHandler = handler;
 	}
+    if (event & IEventClear){
+        _clearHandler = handler;
+    }
+    if (event & IEventBeginingEditing){
+        _beginEditingHandler = handler;
+    }
+    if (event & IEventEndEditing){
+        _endEditingHandler = handler;
+    }
 }
 
 - (BOOL)fireEvent:(IEventType)event{
@@ -144,6 +156,18 @@ typedef enum{
 		_returnHandler(event, self);
 		return YES;
 	}
+    if (event == IEventClear && _clearHandler) {
+        _clearHandler(event, self);
+        return YES;
+    }
+    if (event == IEventBeginingEditing && _beginEditingHandler) {
+        _beginEditingHandler(event, self);
+        return YES;
+    }
+    if (event == IEventEndEditing && _endEditingHandler) {
+        _beginEditingHandler(event, self);
+        return YES;
+    }
 	return [super fireEvent:event];
 }
 
@@ -170,6 +194,21 @@ typedef enum{
 		[textField resignFirstResponder];
 	}
 	return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField{
+    [self fireEvent:IEventClear];
+    return YES;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    [self fireEvent:IEventBeginingEditing];
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    [self fireEvent:IEventEndEditing];
+    return YES;
 }
 
 @end
