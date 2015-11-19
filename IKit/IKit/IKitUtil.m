@@ -74,16 +74,16 @@ static CGFloat colorVal(NSString *hex){
         rgba = [rgba stringByTrimmingCharactersInSet:cs];
     }
     NSArray *vals = [rgba componentsSeparatedByString:@","];
-                     
     
     if ([vals count] != 4) {
         return [UIColor clearColor];
     }
     
     CGFloat red = [[vals[0] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]] floatValue] / 255.0;
-    CGFloat green = [[vals[0] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]] floatValue] / 255.0;
-    CGFloat blue = [[vals[0] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]] floatValue] / 255.0;
-    CGFloat alpha = [[vals[0] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]] floatValue];
+    CGFloat green = [[vals[1] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]] floatValue] / 255.0;
+    CGFloat blue = [[vals[2] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]] floatValue] / 255.0;
+    CGFloat alpha = [[vals[3] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]] floatValue];
+    
     return [UIColor colorWithRed: red green: green blue: blue alpha: alpha];
 }
 

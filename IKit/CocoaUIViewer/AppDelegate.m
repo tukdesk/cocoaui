@@ -22,7 +22,7 @@
 	
 	UINavigationController *nav = [[UINavigationController alloc] init];
 	nav.navigationBar.tintColor = [UIColor whiteColor];
-	nav.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
+    nav.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [IKitUtil colorFromRGBA:@"rgba(255, 255, 255, 0.70)"]};
 	nav.navigationBar.barTintColor = [IKitUtil colorFromHex:@"#6cf"];
 	nav.navigationBar.translucent = NO;
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];

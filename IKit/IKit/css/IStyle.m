@@ -691,8 +691,16 @@
 	if(ps.count > 2){
         if([ps[2] characterAtIndex:0] == '#'){
             border.color = [IKitUtil colorFromHex:ps[2]];
-        }else if([v rangeOfString:@"rgba("].location != NSNotFound){
-            border.color = [IKitUtil colorFromRGBA:ps[2]];
+        }else if([ps[2] rangeOfString:@"rgba("].location != NSNotFound){
+            // rgba 通常含有空格
+            int idx;
+            for (idx = 2; idx < ps.count; idx ++) {
+                if ([ps[idx] hasSuffix:@")"]) {
+                    break;
+                }
+            }
+            NSString *borderColor = [[ps subarrayWithRange:NSMakeRange(2, idx - 2 + 1)] componentsJoinedByString:@" "];
+            border.color = [IKitUtil colorFromRGBA:borderColor];
         }
 	}
 	return border;
