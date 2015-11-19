@@ -24,5 +24,6 @@
 #import "IKit/IImage.h"
 #import "IKit/IPullRefresh.h"
 #import "IKit/IRefreshControl.h"
+#import "IKit/IPopover.h"
 
 #endif
