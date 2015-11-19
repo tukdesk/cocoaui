@@ -64,6 +64,29 @@ static CGFloat colorVal(NSString *hex){
 	return [UIColor colorWithRed: red green: green blue: blue alpha: alpha];
 }
 
++ (UIColor *)colorFromRGBA: (NSString *)rgba {
+    if([rgba rangeOfString:@"rgba("].location != NSNotFound){
+        rgba = [rgba substringFromIndex:5];
+        static NSCharacterSet *cs = nil;
+        if(!cs){
+            cs = [NSCharacterSet characterSetWithCharactersInString:@")"];
+        }
+        rgba = [rgba stringByTrimmingCharactersInSet:cs];
+    }
+    NSArray *vals = [rgba componentsSeparatedByString:@","];
+                     
+    
+    if ([vals count] != 4) {
+        return [UIColor clearColor];
+    }
+    
+    CGFloat red = [[vals[0] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]] floatValue] / 255.0;
+    CGFloat green = [[vals[0] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]] floatValue] / 255.0;
+    CGFloat blue = [[vals[0] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]] floatValue] / 255.0;
+    CGFloat alpha = [[vals[0] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]] floatValue];
+    return [UIColor colorWithRed: red green: green blue: blue alpha: alpha];
+}
+
 + (BOOL)isHTML:(NSString *)str{
 	if([str rangeOfString:@"</html>"].length > 0 || [str rangeOfString:@"</HTML>"].length > 0){
 		if([str rangeOfString:@"</body>"].length > 0 || [str rangeOfString:@"</BODY>"].length > 0){

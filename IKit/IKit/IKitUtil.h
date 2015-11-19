@@ -16,6 +16,7 @@
 @interface IKitUtil : NSObject
 
 + (UIColor *) colorFromHex:(NSString *)hex;
++ (UIColor *) colorFromRGBA:(NSString *)rgba;
 
 + (BOOL)isHTML:(NSString *)str;
 + (BOOL)isHttpUrl:(NSString *)src;

@@ -541,7 +541,11 @@
 		if([v isEqualToString:@"none"]){
 			_color = nil;
 		}else{
-			_color = [IKitUtil colorFromHex:v];
+            if([v characterAtIndex:0] == '#'){
+                _color = [IKitUtil colorFromHex:v];
+            }else if([v rangeOfString:@"rgba("].location != NSNotFound){
+                _color = [IKitUtil colorFromRGBA:v];
+            }
 		}
 		//log_trace(@"color: %@", color);
 	}else if([k isEqualToString:@"font-family"]){
@@ -580,7 +584,9 @@
 	for(NSString *p in ps){
 		if([p characterAtIndex:0] == '#'){
 			_backgroundColor = [IKitUtil colorFromHex:p];
-		}else if([p rangeOfString:@"url("].location != NSNotFound){
+        }else if([v rangeOfString:@"rgba("].location != NSNotFound){
+            _backgroundColor = [IKitUtil colorFromRGBA:v];
+        }else if([p rangeOfString:@"url("].location != NSNotFound){
 			src = [p substringFromIndex:4];
 			static NSCharacterSet *cs = nil;
 			if(!cs){
@@ -683,7 +689,11 @@
 		}
 	}
 	if(ps.count > 2){
-		border.color = [IKitUtil colorFromHex:ps[2]];
+        if([ps[2] characterAtIndex:0] == '#'){
+            border.color = [IKitUtil colorFromHex:ps[2]];
+        }else if([v rangeOfString:@"rgba("].location != NSNotFound){
+            border.color = [IKitUtil colorFromRGBA:ps[2]];
+        }
 	}
 	return border;
 }
